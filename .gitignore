@@ -178,6 +178,7 @@ dataset/
 output/
 checkpoints/
 samples/
+weights/
 *.png
 *.jpg
 *.pt
