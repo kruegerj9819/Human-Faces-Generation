@@ -1,6 +1,8 @@
 # Human Face Generation
 This project implements a **Generative Adversarial Network (GAN)** that learns to synthesize realistic 64×64 RGB images of human faces. The model is trained on a face dataset and progressively learns to generate believable, high-quality outputs using adversarial training.
 
+**Note: This project is still in development. The results in this README are not final.**
+
 ## Dataset
 The dataset used for this project can be downloaded from [Kaggle](https://www.kaggle.com/datasets/greatgamedota/ffhq-face-data-set).
 
