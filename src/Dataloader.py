@@ -5,7 +5,7 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision.transforms import functional as TF
 from torchvision.io import read_image
 
-
+# https://www.kaggle.com/datasets/greatgamedota/ffhq-face-data-set
 class ImageDataset(Dataset):
     def __init__(self):
         # Construct path relative to the project root

@@ -10,17 +10,17 @@ from torch.utils.data import DataLoader
 import src.GAN as GAN
 import src.Dataloader as Dataloader
 
-def trainGAN(epochs=10, lr=0.001, latent_size=128, output_dir="weights", checkpoint=None):
+def trainGAN(epochs=10, lr=0.0002, latent_size=128, output_dir="weights", checkpoint=None):
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     dataset = Dataloader.ImageDataset()
-    dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=64, shuffle=True, num_workers=4)
 
     generator = GAN.Generator().to(DEVICE)
     discriminator = GAN.Discriminator().to(DEVICE)
     if checkpoint:
-        generator.load_state_dict(torch.load("weights/generator_epoch_10.pth"))
-        discriminator.load_state_dict(torch.load("weights/generator_epoch_10.pth"))
+        generator.load_state_dict(torch.load("weights/generator_epoch_20.pth"))
+        discriminator.load_state_dict(torch.load("weights/discriminator_epoch_20.pth"))
     optimizerGen = Adam(generator.parameters(), lr=lr, betas=(0.5, 0.999))
     optimizerDisc = Adam(discriminator.parameters(), lr=lr, betas=(0.5, 0.999))
 
@@ -94,7 +94,7 @@ def trainGAN(epochs=10, lr=0.001, latent_size=128, output_dir="weights", checkpo
 
         print(f"Epoch [{epoch + 1}/{epochs}]  D_loss: {last_d_loss:.4f}  G_loss: {last_g_loss:.4f}")
         print(f"Training completed in {time.time() - start_time:.2f} seconds")
-        if (epoch + 1) == epochs:
+        if (epoch + 1) % 10 == 0:
             generator.eval()
             with torch.no_grad():
                 z = torch.randn(16, latent_size, 1, 1).to(DEVICE)
